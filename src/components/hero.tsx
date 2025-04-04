@@ -9,16 +9,16 @@ export function Hero() {
     <section className="container flex flex-col items-center gap-10 pb-28 pt-20 sm:gap-14 lg:flex-row">
       <div className="flex flex-1 flex-col items-center gap-8 lg:items-start lg:gap-10">
         <div className="flex cursor-pointer items-center gap-1 rounded-full border bg-secondary px-3 py-0.5 hover:bg-secondary/60">
-          <span className="text-sm text-secondary-foreground">Announcing our seed round</span>
+          <span className="text-sm text-secondary-foreground">Connect With Top Influencers</span>
           <ArrowRight size={16} />
         </div>
         <h1 className="max-w-2xl text-center font-heading text-4xl font-semibold tracking-tight sm:text-5xl lg:text-left">
-          Build beautiful landing pages in minutes
+          affiliate marketing made easy. <a className="italic text-blue-600">no cap!</a>
         </h1>
         <p className="max-w-md text-center text-lg text-muted-foreground lg:text-left">
           {" "}
-          Build at the speed of no-code and then export to Next.js & Tailwind code for full
-          customization.
+          Launch affiliate marketing campaigns. Influencers share refferal links. Pay-out affiliates
+          in one click.
         </p>
         <div className="grid grid-cols-2 gap-3">
           <Button size="lg" variant="outline" asChild className="cursor-pointer border-border">
@@ -31,12 +31,12 @@ export function Hero() {
       </div>
       <div className="relative flex-1">
         <Image
-          src="/images/dashboard.png"
+          src="/images/affiliator-header.png"
           alt="SaaS Dashboard"
           width={1000}
           height={698}
           priority
-          className="rounded-xl border border-border shadow-lg"
+          className="rounded-xl"
         />
         <div className="absolute inset-0 -z-10 bg-primary/20 [filter:blur(180px)]" />
       </div>

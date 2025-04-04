@@ -11,7 +11,7 @@ export function Header() {
     <header className="container flex items-center justify-between gap-10 py-4">
       <Link href="/" className="flex items-center gap-3">
         <Image
-          src="/images/affiliator-logo.png"
+          src="/images/affiliator-blue-logo.png"
           alt="Affiliator Logo"
           width={24}
           height={24}
