@@ -1,8 +1,8 @@
 "use client";
 
-import { usePrivy } from '@privy-io/react-auth';
-import { useRouter } from 'next/navigation';
-import { useEffect, ReactNode } from 'react';
+import { usePrivy } from "@privy-io/react-auth";
+import { useRouter } from "next/navigation";
+import { useEffect, ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 
 interface PrivyAuthCheckProps {
@@ -17,10 +17,10 @@ interface PrivyAuthCheckProps {
  * @param redirectTo Where to redirect if auth check fails
  * @param requireAuth Whether authentication is required (default: true)
  */
-export function PrivyAuthCheck({ 
-  children, 
-  redirectTo = '/signup',
-  requireAuth = true
+export function PrivyAuthCheck({
+  children,
+  redirectTo = "/signup",
+  requireAuth = true,
 }: PrivyAuthCheckProps) {
   const { ready, authenticated } = usePrivy();
   const router = useRouter();
@@ -31,7 +31,7 @@ export function PrivyAuthCheck({
       if (requireAuth && !authenticated) {
         router.push(redirectTo);
       }
-      
+
       // If auth is NOT required but user IS authenticated (like on login page),
       // You could add logic here to redirect to dashboard
     }
@@ -40,8 +40,8 @@ export function PrivyAuthCheck({
   // Still loading
   if (!ready) {
     return (
-      <div className="h-screen flex items-center justify-center">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="size-12 animate-spin text-primary" />
       </div>
     );
   }
