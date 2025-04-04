@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className="hidden h-screen w-64 flex-col border-r border-border bg-sidebar p-6 text-sidebar-foreground lg:flex">
         <div className="mb-8 flex items-center gap-2">
           <Image
-            src="/images/affiliator-logo.png"
+            src="/images/affiliator-blue-logo.png"
             alt="Affiliator Logo"
             width={24}
             height={24}

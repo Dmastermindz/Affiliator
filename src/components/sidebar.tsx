@@ -19,10 +19,10 @@ export function Sidebar({ className }: SidebarProps) {
     >
       <div className="mb-8 flex items-center gap-2 px-2">
         <Image
-          src="/images/affiliator-logo.png"
+          src="/images/affiliator-blue-logo.png"
           alt="Affiliator Logo"
           width={24}
-          height={24}
+          height={50}
           className="text-primary"
         />
         <h1 className="font-heading text-lg font-bold">Affiliator</h1>
