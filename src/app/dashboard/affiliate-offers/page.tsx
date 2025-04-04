@@ -52,9 +52,6 @@ export default function AffiliateOffersPage() {
                 {offer.category}
               </span>
             </div>
-            <Button className="mt-4 w-full" variant="outline">
-              View Details
-            </Button>
           </Card>
         ))}
       </div>

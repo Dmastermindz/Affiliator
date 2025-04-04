@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, BarChart, Home } from "lucide-react";
+import { LayoutDashboard, BarChart, Home, Users } from "lucide-react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -28,29 +28,30 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         <nav className="space-y-2">
-          <h2 className="pb-5 font-heading text-lg font-bold">Affiliate Management</h2>
-          <Link
-            href="/dashboard"
-            className={`flex items-center rounded-lg px-4 py-2 transition-colors ${
-              isActive("/dashboard")
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:text-sidebar-foreground"
-            }`}
-          >
-            <LayoutDashboard className="mr-3 size-4" />
-            <span className="font-medium">Affiliate Revenue</span>
-          </Link>
+          <h2 className="pb-5 font-heading text-lg font-bold">Influencer Dashboard</h2>
 
           <Link
-            href="/dashboard/affiliate-offers"
+            href="/dashboard-influencer/affiliate-offers"
             className={`flex items-center rounded-lg px-4 py-2 transition-colors ${
-              isActive("/dashboard/affiliate-offers")
+              isActive("/dashboard-influencer/affiliate-offers")
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:text-sidebar-foreground"
             }`}
           >
             <BarChart className="mr-3 size-4" />
-            <span className="font-medium">Affiliate Offers</span>
+            <span className="font-medium">Available Offers</span>
+          </Link>
+
+          <Link
+            href="/dashboard-influencer/leads"
+            className={`flex items-center rounded-lg px-4 py-2 transition-colors ${
+              isActive("/dashboard-influencer/leads")
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-sidebar-foreground"
+            }`}
+          >
+            <Users className="mr-3 size-4" />
+            <span className="font-medium">My Leads</span>
           </Link>
         </nav>
       </aside>
@@ -60,7 +61,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="border-b border-border bg-card p-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">
-              {isActive("/dashboard") ? "Affiliate Revenue" : "Affiliate Offers"}
+              {isActive("/dashboard-influencer")
+                ? "Influencer Overview"
+                : isActive("/dashboard-influencer/affiliate-offers")
+                  ? "Available Affiliate Offers"
+                  : "My Leads"}
             </h2>
             <div className="flex items-center space-x-4">
               <Link

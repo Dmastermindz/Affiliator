@@ -12,7 +12,7 @@ export function Hero() {
           <span className="text-sm text-secondary-foreground">Announcing our seed round</span>
           <ArrowRight size={16} />
         </div>
-        <h1 className="max-w-2xl text-center font-heading text-4xl font-semibold sm:text-5xl lg:text-left tracking-tight">
+        <h1 className="max-w-2xl text-center font-heading text-4xl font-semibold tracking-tight sm:text-5xl lg:text-left">
           Build beautiful landing pages in minutes
         </h1>
         <p className="max-w-md text-center text-lg text-muted-foreground lg:text-left">
