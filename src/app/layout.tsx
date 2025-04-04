@@ -20,7 +20,7 @@ const fontHeading = localFont({
 
 export const metadata: Metadata = {
   title: "Affiliator",
-  description: "A OnChain Affilaite Program",
+  description: "Affiliate Marketing Platform",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
         className={cn(
           "min-h-screen font-sans antialiased",
           fontSans.variable,
-          fontHeading.variable
+          fontHeading.variable,
         )}
       >
         <PrivyClientProvider>{children}</PrivyClientProvider>

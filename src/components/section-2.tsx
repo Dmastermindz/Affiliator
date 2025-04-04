@@ -1,4 +1,6 @@
-import { Plus, Users, DollarSign, ChartNoAxesColumn, Download, ArrowDownUp } from "lucide-react";
+"use client";
+
+import { Plus, Users, DollarSign, BarChart3, CreditCard, ArrowDownUp } from "lucide-react";
 
 import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
@@ -19,21 +21,16 @@ import {
 
 export function Section2() {
   return (
-    <div className="flex w-full min-h-screen">
+    <div className="flex min-h-screen w-full">
       <Sidebar />
-      <div className="flex-1 w-full flex flex-col">
-        <Header />
-        <main className="p-6 flex-1">
-          <div className="flex justify-between items-center mb-5">
-            <h2 className="font-heading font-semibold tracking-tight text-balance text-2xl sm:text-3xl">
-              Dashboard
+      <div className="flex w-full flex-1 flex-col">
+        <main className="flex-1 p-6">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-balance font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+              My Affiliate Earnings
             </h2>
-            <Button size="sm" className="gap-1">
-              <Plus size={16} />
-              New Invoice
-            </Button>
           </div>
-          <div className="grid gap-5 grid-cols-1 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             <MetricCard
               icon={Users}
               label="Subscriptions"
@@ -49,27 +46,27 @@ export function Section2() {
               previousPeriodIncrease="+22%"
             />
             <MetricCard
-              icon={ChartNoAxesColumn}
+              icon={BarChart3}
               label="MRR"
               value="$5,632"
               progress={60}
               previousPeriodIncrease="+14%"
             />
           </div>
-          <Card className="rounded-lg border bg-card text-card-foreground shadow-sm p-5 mt-5">
-            <div className="flex justify-between items-center mb-5">
-              <h2 className="font-heading font-semibold tracking-tight text-xl">
+          <Card className="mt-5 rounded-lg border bg-card p-5 text-card-foreground shadow-sm">
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="font-heading text-xl font-semibold tracking-tight">
                 Last Transactions
               </h2>
               <Button size="sm" variant="outline" className="gap-1">
-                <Download size={14} />
-                Export
+                <CreditCard size={14} />
+                Pay Out Affiliates
               </Button>
             </div>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[100px] text-left">Code</TableHead>
+                  <TableHead className="w-[100px] text-left">Affiliate Code</TableHead>
                   <TableHead className="text-left">User</TableHead>
                   <TableHead>
                     <div className="flex items-center gap-2">
@@ -80,7 +77,7 @@ export function Section2() {
                   <TableHead className="text-center">Frequency</TableHead>
                   <TableHead className="text-center">Succedeed</TableHead>
                   <TableHead className="text-right">
-                    <div className="flex items-center gap-2 justify-end">
+                    <div className="flex items-center justify-end gap-2">
                       Amount
                       <ArrowDownUp size={16} />
                     </div>
@@ -104,6 +101,7 @@ export function Section2() {
                   amount={165.99}
                   avatar="/images/avatar.png"
                   frequency="Yearly"
+                  isSuccess={false}
                 />
                 <PaymentsTableRow
                   code="NS62A"
@@ -130,6 +128,7 @@ export function Section2() {
                   amount={18.99}
                   avatar="/images/avatar3.png"
                   frequency="Monthly"
+                  isSuccess={false}
                 />
                 <PaymentsTableRow
                   code="JC82L"

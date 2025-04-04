@@ -24,14 +24,14 @@ export function MetricCard({
   className,
 }: MetricCardProps) {
   return (
-    <Card className={cn("rounded-lg border bg-card text-card-foreground shadow-sm p-5", className)}>
-      <div className="flex justify-between items-center">
+    <Card className={cn("rounded-lg border bg-card p-5 text-card-foreground shadow-sm", className)}>
+      <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">{label}</p>
         <Icon size={16} className="text-primary" />
       </div>
       <div className="flex items-end gap-2">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight mt-3">{value}</h3>
-        <p className="text-xs text-muted-foreground mt-1 mt-2">
+        <h3 className="mt-3 text-2xl font-semibold leading-none tracking-tight">{value}</h3>
+        <p className="mt-2 text-xs text-muted-foreground">
           <span className="mr-1">{previousPeriodIncrease}</span>
         </p>
       </div>

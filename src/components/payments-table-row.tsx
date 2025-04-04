@@ -28,9 +28,9 @@ export function PaymentsTableRow({
   return (
     <TableRow className={className}>
       <TableCell className="font-medium">{code}</TableCell>
-      <TableCell className="items-center gap-2 flex">
+      <TableCell className="flex items-center gap-2">
         <Avatar className="size-8">
-          <AvatarImage alt="avatar" src={avatar} className="object-cover mx-auto bg-primary/10" />
+          <AvatarImage alt="avatar" src={avatar} className="mx-auto bg-primary/10 object-cover" />
           <AvatarFallback>ML</AvatarFallback>
         </Avatar>
         <span>{email}</span>
@@ -39,14 +39,14 @@ export function PaymentsTableRow({
         <div className="text-muted-foreground">{date}</div>
       </TableCell>
       <TableCell>
-        <div className="flex items-center justify-center w-full">
-          <div className="inline-flex items-center justify-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-primary/10 text-primary">
+        <div className="flex w-full items-center justify-center">
+          <div className="inline-flex items-center justify-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
             {frequency}
           </div>
         </div>
       </TableCell>
       <TableCell>
-        <div className="flex items-center justify-center w-full">
+        <div className="flex w-full items-center justify-center">
           {isSuccess === true && <Check size={16} className="text-green-500" />}
           {isSuccess === false && <X size={16} className="text-red-500" />}
         </div>

@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { DollarSign } from "lucide-react";
+import { DollarSign, Users, TrendingUp, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Transaction {
@@ -37,38 +37,47 @@ export default function DashboardPage() {
       {/* Stats Overview */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card className="p-6">
-          <h3 className="mb-2 text-sm text-muted-foreground">Subscriptions</h3>
+          <h3 className="mb-2 text-sm text-muted-foreground">Total Leads</h3>
           <div className="flex items-end justify-between">
             <span className="text-2xl font-bold">1,240</span>
-            <span className="text-primary">+10%</span>
+            <span className="flex items-center text-primary">
+              <ArrowUpRight className="mr-1 size-4" />
+              +10%
+            </span>
           </div>
         </Card>
 
         <Card className="p-6">
-          <h3 className="mb-2 text-sm text-muted-foreground">Revenue</h3>
+          <h3 className="mb-2 text-sm text-muted-foreground">Total Earnings</h3>
           <div className="flex items-end justify-between">
-            <span className="text-2xl font-bold">$35,231.81</span>
-            <span className="text-primary">+22%</span>
+            <span className="text-2xl font-bold">$5,231.81</span>
+            <span className="flex items-center text-primary">
+              <ArrowUpRight className="mr-1 size-4" />
+              +22%
+            </span>
           </div>
         </Card>
 
         <Card className="p-6">
-          <h3 className="mb-2 text-sm text-muted-foreground">MRR</h3>
+          <h3 className="mb-2 text-sm text-muted-foreground">Conversion Rate</h3>
           <div className="flex items-end justify-between">
-            <span className="text-2xl font-bold">$5,632</span>
-            <span className="text-primary">+14%</span>
+            <span className="text-2xl font-bold">8.5%</span>
+            <span className="flex items-center text-primary">
+              <ArrowUpRight className="mr-1 size-4" />
+              +14%
+            </span>
           </div>
         </Card>
       </div>
 
-      {/* Transactions Table */}
+      {/* Recent Leads Table */}
       <Card>
         <div className="p-6">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Last Transactions</h2>
+            <h2 className="text-xl font-semibold">Recent Leads</h2>
             <Button size="sm" className="gap-1">
-              <DollarSign className="size-4" />
-              Pay Out Affiliates
+              <Users className="size-4" />
+              View All Leads
             </Button>
           </div>
 
@@ -79,8 +88,8 @@ export default function DashboardPage() {
                   <th className="pb-3 text-muted-foreground">Affiliate Code</th>
                   <th className="pb-3 text-muted-foreground">User</th>
                   <th className="pb-3 text-muted-foreground">Date</th>
-                  <th className="pb-3 text-muted-foreground">Influencer Paid</th>
-                  <th className="pb-3 text-muted-foreground">Influencer Payment</th>
+                  <th className="pb-3 text-muted-foreground">Status</th>
+                  <th className="pb-3 text-muted-foreground">Your Commission</th>
                   <th className="pb-3 text-right text-muted-foreground">Revenue</th>
                 </tr>
               </thead>
