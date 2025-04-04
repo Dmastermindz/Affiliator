@@ -11,20 +11,20 @@ import { Switch } from "@/components/ui/switch";
 
 export function Section() {
   return (
-    <div className="flex w-full min-h-screen">
+    <div className="flex min-h-screen w-full">
       <Sidebar />
-      <div className="flex-1 w-full flex flex-col">
+      <div className="flex w-full flex-1 flex-col">
         <Header />
-        <main className="p-6 flex-1">
-          <div className="flex justify-between items-center mb-5">
-            <h2 className="font-heading font-semibold tracking-tight text-balance text-2xl sm:text-3xl">
+        <main className="flex-1 p-6">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-balance font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
               Settings
             </h2>
           </div>
           <div className="grid gap-10">
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <Avatar className="h-20 w-20">
+                <Avatar className="size-20">
                   <Image alt="Profile picture" src="/images/avatar8.png" width={80} height={80} />
                 </Avatar>
                 <div className="space-y-2">
@@ -39,7 +39,7 @@ export function Section() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="space-y-4">
                   <div className="grid gap-2">
                     <Label htmlFor="firstName">First Name</Label>
@@ -69,7 +69,7 @@ export function Section() {
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <Label>Email Notifications</Label>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-sm text-muted-foreground">
                       Receive email about your account activity
                     </p>
                   </div>
@@ -78,7 +78,7 @@ export function Section() {
                 <div className="flex items-center justify-between">
                   <div className="space-y-0.5">
                     <Label>Two-Factor Authentication</Label>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-sm text-muted-foreground">
                       Add an extra layer of security to your account
                     </p>
                   </div>
@@ -88,12 +88,12 @@ export function Section() {
             </div>
             <Separator />
             <div className="space-y-6">
-              <h3 className="font-heading font-semibold text-destructive text-xl">Danger Zone</h3>
+              <h3 className="font-heading text-xl font-semibold text-destructive">Danger Zone</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between rounded-lg border border-destructive/20 p-4">
                   <div>
                     <h4 className="font-medium text-destructive">Delete Account</h4>
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-sm text-muted-foreground">
                       Permanently delete your account and all data
                     </p>
                   </div>
