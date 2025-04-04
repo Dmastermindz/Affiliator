@@ -27,12 +27,8 @@ export function Section2() {
         <main className="flex-1 p-6">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-balance font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
-              Affiliate Revenue
+              My Affiliate Earnings
             </h2>
-            <Button size="sm" className="gap-1">
-              <Plus size={16} />
-              New Affiliate Offer
-            </Button>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             <MetricCard
