@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Youtube } from "lucide-react";
 
 import { NavItem2 } from "@/components/nav-item2";
 import { Button } from "@/components/ui/button";
@@ -25,9 +26,10 @@ export function Header() {
           <NavItem2 label="I'm an Influencer" href="/dashboard-influencer" />
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-          <Button asChild>
-            <Link href="/dashboard" className="cursor-pointer">
-              Create an Affiliate Offer
+          <Button variant="destructive" className="flex items-center gap-2" asChild>
+            <Link href="/youtube-video">
+              <Youtube className="h-5 w-5" />
+              Watch the Demo
             </Link>
           </Button>
         </div>
@@ -37,7 +39,12 @@ export function Header() {
           <nav className="flex flex-col gap-1 pt-2">
             <MobileNavItem2 label="I'm an Organization" href="/dashboard" />
             <MobileNavItem2 label="I'm an Influencer" href="/dashboard-influencer" />
-
+            <Button variant="destructive" className="flex items-center gap-2" asChild>
+              <Link href="/youtube-video">
+                <Youtube className="h-5 w-5" />
+                Watch the Demo
+              </Link>
+            </Button>
             <Button asChild>
               <Link href="/dashboard" className="cursor-pointer">
                 Create an Affiliate Offer
