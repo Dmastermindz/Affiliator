@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Search, Filter, ArrowUpRight } from "lucide-react";
+import { Search, Filter, ArrowUpRight, Copy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 
@@ -15,6 +15,7 @@ interface OfferCard {
   category: string;
   requirements: string[];
   payoutFrequency: string;
+  affiliateUrl: string;
 }
 
 const mockOffers: OfferCard[] = [
@@ -27,6 +28,7 @@ const mockOffers: OfferCard[] = [
     category: "Software",
     requirements: ["10K+ followers", "Tech niche", "Engagement rate > 3%"],
     payoutFrequency: "Monthly",
+    affiliateUrl: "https://affiliator.xyz/offer/techcorp-saas",
   },
   {
     id: "2",
@@ -37,6 +39,7 @@ const mockOffers: OfferCard[] = [
     category: "Health",
     requirements: ["5K+ followers", "Fitness/wellness content", "Active audience"],
     payoutFrequency: "Bi-weekly",
+    affiliateUrl: "https://affiliator.xyz/offer/fitlife-program",
   },
   {
     id: "3",
@@ -47,6 +50,7 @@ const mockOffers: OfferCard[] = [
     category: "Education",
     requirements: ["15K+ followers", "Education niche", "Student audience"],
     payoutFrequency: "Monthly",
+    affiliateUrl: "https://affiliator.xyz/offer/edutech-courses",
   },
   {
     id: "4",
@@ -57,11 +61,16 @@ const mockOffers: OfferCard[] = [
     category: "Fashion",
     requirements: ["20K+ followers", "Fashion/lifestyle content", "High engagement"],
     payoutFrequency: "Monthly",
+    affiliateUrl: "https://affiliator.xyz/offer/fashion-forward-summer",
   },
   // Add more mock offers as needed
 ];
 
 export default function AffiliateOffersPage() {
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -118,10 +127,17 @@ export default function AffiliateOffersPage() {
               </div>
             </div>
 
-            <Button className="w-full gap-1">
-              Generate Affiliate URL
-              <ArrowUpRight className="size-4" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Input type="text" value={offer.affiliateUrl} readOnly className="flex-1" />
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => copyToClipboard(offer.affiliateUrl)}
+                className="shrink-0"
+              >
+                <Copy className="size-4" />
+              </Button>
+            </div>
           </Card>
         ))}
       </div>
