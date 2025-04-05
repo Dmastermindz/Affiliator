@@ -43,8 +43,8 @@ export default function CreateOfferForm() {
   };
 
   return (
-    <Card className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-6">Create New Affiliate Offer</h2>
+    <Card className="mx-auto max-w-2xl p-6">
+      <h2 className="mb-6 text-2xl font-semibold">Create New Affiliate Offer</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="offer_name">Offer Title</Label>

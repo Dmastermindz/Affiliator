@@ -1,6 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Plus, Users, DollarSign, BarChart3, CreditCard, ArrowDownUp } from "lucide-react";
+import { supabase } from "@/lib/supabaseClient";
+import { cn } from "@/lib/utils";
 
 import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
@@ -19,7 +22,52 @@ import {
   PaginationNext,
 } from "@/components/ui/pagination";
 
+interface Transaction {
+  tx_id: string;
+  affiliate_code: string;
+  user_id: string;
+  purchase_date: string;
+  purchase_value: number;
+  influencer_payment: number;
+  influencer_paid: boolean;
+  request_id: string;
+}
+
 export function Section2() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  useEffect(() => {
+    async function fetchTransactions() {
+      try {
+        const { data, error } = await supabase
+          .from("user_transactions")
+          .select("*")
+          .order("purchase_date", { ascending: false })
+          .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
+
+        if (error) throw error;
+        setTransactions(data || []);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "An error occurred while fetching transactions",
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTransactions();
+  }, [currentPage]);
+
+  // Calculate total earnings and other metrics
+  const totalEarnings = transactions.reduce((sum, tx) => sum + tx.purchase_value, 0);
+  const totalInfluencerPayments = transactions.reduce((sum, tx) => sum + tx.influencer_payment, 0);
+  const successfulTransactions = transactions.filter((tx) => tx.influencer_paid).length;
+
   return (
     <div className="flex min-h-screen w-full">
       <Sidebar />
@@ -33,22 +81,22 @@ export function Section2() {
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             <MetricCard
               icon={Users}
-              label="Subscriptions"
-              value="1240"
+              label="Total Transactions"
+              value={transactions.length.toString()}
               progress={35}
               previousPeriodIncrease="+10%"
             />
             <MetricCard
               icon={DollarSign}
-              label="Revenue"
-              value="$35,231.81"
+              label="Total Revenue"
+              value={`$${totalEarnings.toFixed(2)}`}
               progress={48}
               previousPeriodIncrease="+22%"
             />
             <MetricCard
               icon={BarChart3}
-              label="MRR"
-              value="$5,632"
+              label="Influencer Payments"
+              value={`$${totalInfluencerPayments.toFixed(2)}`}
               progress={60}
               previousPeriodIncrease="+14%"
             />
@@ -63,108 +111,110 @@ export function Section2() {
                 Pay Out Affiliates
               </Button>
             </div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[100px] text-left">Affiliate Code</TableHead>
-                  <TableHead className="text-left">User</TableHead>
-                  <TableHead>
-                    <div className="flex items-center gap-2">
-                      Date
-                      <ArrowDownUp size={16} />
-                    </div>
-                  </TableHead>
-                  <TableHead className="text-center">Frequency</TableHead>
-                  <TableHead className="text-center">Succedeed</TableHead>
-                  <TableHead className="text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      Amount
-                      <ArrowDownUp size={16} />
-                    </div>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <PaymentsTableRow
-                  code="BT92X"
-                  date="2025/01/1"
-                  email="alex.sear@spml.com"
-                  amount={18.99}
-                  avatar="/images/avatar7.png"
-                  frequency="Monthly"
-                  isSuccess
-                />
-                <PaymentsTableRow
-                  code="VH54P"
-                  date="2025/17/1"
-                  email="john.doe@gmail.com"
-                  amount={165.99}
-                  avatar="/images/avatar.png"
-                  frequency="Yearly"
-                  isSuccess={false}
-                />
-                <PaymentsTableRow
-                  code="NS62A"
-                  date="2025/16/1"
-                  email="sarah.jane@email.com"
-                  amount={165.99}
-                  avatar="/images/avatar6.png"
-                  frequency="Yearly"
-                  isSuccess
-                />
-                <PaymentsTableRow
-                  code="GA46E"
-                  date="2025/14/1"
-                  email="liza.miller@tech.com"
-                  amount={18.99}
-                  avatar="/images/avatar5.png"
-                  frequency="Monthly"
-                  isSuccess
-                />
-                <PaymentsTableRow
-                  code="JC82L"
-                  date="2025/16/1"
-                  email="mike.todd@email.com"
-                  amount={18.99}
-                  avatar="/images/avatar3.png"
-                  frequency="Monthly"
-                  isSuccess={false}
-                />
-                <PaymentsTableRow
-                  code="JC82L"
-                  date="2025/16/1"
-                  email="mike.todd@email.com"
-                  amount={18.99}
-                  avatar="/images/avatar4.png"
-                  frequency="Monthly"
-                  isSuccess
-                />
-              </TableBody>
-            </Table>
+            {error ? (
+              <div className="text-center text-red-500">{error}</div>
+            ) : loading ? (
+              <div className="text-center">Loading transactions...</div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[100px] text-left">Transaction ID</TableHead>
+                    <TableHead className="text-left">Affiliate Code</TableHead>
+                    <TableHead>
+                      <div className="flex items-center gap-2">
+                        Purchase Date
+                        <ArrowDownUp size={16} />
+                      </div>
+                    </TableHead>
+                    <TableHead className="text-right">Purchase Value</TableHead>
+                    <TableHead className="text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        Influencer Payment
+                        <ArrowDownUp size={16} />
+                      </div>
+                    </TableHead>
+                    <TableHead className="text-center">Payment Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {transactions.map((tx) => (
+                    <PaymentsTableRow
+                      key={tx.tx_id}
+                      tx_id={tx.tx_id}
+                      affiliate_code={tx.affiliate_code}
+                      purchase_date={tx.purchase_date}
+                      purchase_value={tx.purchase_value}
+                      influencer_payment={tx.influencer_payment}
+                      influencer_paid={tx.influencer_paid}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            )}
             <Pagination className="mt-6">
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
                     href="#"
-                    className="[&&gt;span]:hidden md:[&&gt;span]:block"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (currentPage > 1) setCurrentPage(currentPage - 1);
+                    }}
+                    className={cn(
+                      "[&&>span]:hidden md:[&&>span]:block",
+                      currentPage === 1 && "pointer-events-none opacity-50",
+                    )}
                   />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink href="#">1</PaginationLink>
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(1);
+                    }}
+                    isActive={currentPage === 1}
+                  >
+                    1
+                  </PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink href="#" isActive>
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(2);
+                    }}
+                    isActive={currentPage === 2}
+                  >
                     2
                   </PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink href="#">3</PaginationLink>
+                  <PaginationLink
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(3);
+                    }}
+                    isActive={currentPage === 3}
+                  >
+                    3
+                  </PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
                   <PaginationEllipsis />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationNext href="#" className="[&&gt;span]:hidden md:[&&gt;span]:block" />
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage(currentPage + 1);
+                    }}
+                    className="[&&>span]:hidden md:[&&>span]:block"
+                  />
                 </PaginationItem>
               </PaginationContent>
             </Pagination>

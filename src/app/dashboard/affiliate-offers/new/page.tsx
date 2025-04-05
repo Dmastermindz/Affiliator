@@ -3,7 +3,7 @@ import TestSupabase from "@/components/affiliate/TestSupabase";
 
 export default function NewAffiliateOfferPage() {
   return (
-    <div className="container py-8 space-y-8">
+    <div className="container space-y-8 py-8">
       <CreateOfferForm />
     </div>
   );

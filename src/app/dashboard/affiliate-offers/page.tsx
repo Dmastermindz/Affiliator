@@ -8,11 +8,11 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 
 interface OfferCard {
-  id: string;
-  title: string;
-  description: string;
-  commission: string;
-  category: string;
+  offer_id: string;
+  offer_name: string;
+  details: string;
+  offer_percent: string;
+  keywords: string;
 }
 
 export default function AffiliateOffersPage() {
@@ -23,15 +23,20 @@ export default function AffiliateOffersPage() {
   useEffect(() => {
     async function fetchOffers() {
       try {
-        const { data, error } = await supabase
-          .from("affiliate_offers")
-          .select("*")
-          .order("created_at", { ascending: false });
+        console.log("Starting to fetch offers...");
+        const { data, error } = await supabase.from("affiliate_offers").select("*");
 
-        if (error) throw error;
+        console.log("Supabase response:", { data, error });
+
+        if (error) {
+          console.error("Supabase error:", error);
+          throw error;
+        }
+
+        console.log("Setting offers:", data);
         setOffers(data || []);
       } catch (error) {
-        console.error("Error fetching offers:", error);
+        console.error("Error in fetchOffers:", error);
       } finally {
         setLoading(false);
       }
@@ -55,21 +60,24 @@ export default function AffiliateOffersPage() {
       </div>
 
       {loading ? (
-        <div className="text-center py-8">Loading offers...</div>
+        <div className="py-8 text-center">Loading offers...</div>
       ) : offers.length === 0 ? (
-        <div className="text-center py-8 text-muted-foreground">
+        <div className="py-8 text-center text-muted-foreground">
           No offers found. Create your first offer to get started!
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {offers.map((offer) => (
-            <Card key={offer.id} className="flex flex-col p-6 transition-shadow hover:shadow-lg">
-              <h3 className="mb-2 text-lg font-semibold">{offer.title}</h3>
-              <p className="mb-4 grow text-muted-foreground">{offer.description}</p>
+            <Card
+              key={offer.offer_id}
+              className="flex flex-col p-6 transition-shadow hover:shadow-lg"
+            >
+              <h3 className="mb-2 text-lg font-semibold">{offer.offer_name}</h3>
+              <p className="mb-4 grow text-muted-foreground">{offer.details}</p>
               <div className="flex items-center justify-between">
-                <span className="font-medium text-primary">{offer.commission}</span>
+                <span className="font-medium text-primary">{offer.offer_percent}% Commission</span>
                 <span className="rounded-full bg-primary/10 px-2 py-1 text-sm text-primary">
-                  {offer.category}
+                  {offer.keywords}
                 </span>
               </div>
             </Card>

@@ -21,8 +21,8 @@ export default function TestSupabase() {
   }, []);
 
   return (
-    <div className="p-4 border rounded-lg">
-      <h3 className="font-semibold mb-2">Supabase Connection Test</h3>
+    <div className="rounded-lg border p-4">
+      <h3 className="mb-2 font-semibold">Supabase Connection Test</h3>
       <p>{testResult}</p>
     </div>
   );
