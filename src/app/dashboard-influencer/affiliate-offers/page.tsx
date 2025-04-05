@@ -119,7 +119,7 @@ export default function AffiliateOffersPage() {
             </div>
 
             <Button className="w-full gap-1">
-              Apply Now
+              Generate Affiliate URL
               <ArrowUpRight className="size-4" />
             </Button>
           </Card>

@@ -1,23 +1,26 @@
-import { LucideProps } from "lucide-react";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface FeatureCardProps {
   title: string;
   description: string;
-  icon: React.ForwardRefExoticComponent<
-    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-  >;
+  image: string;
   className?: string;
 }
 
-export function FeatureCard({ title, description, icon: Icon, className }: FeatureCardProps) {
+export function FeatureCard({ title, description, image, className }: FeatureCardProps) {
   return (
     <Card className={cn("shadow-lg", className)}>
       <CardContent className="flex flex-col items-start gap-5 p-7">
-        <div className="inline-flex items-center justify-center rounded-md border border-border bg-secondary p-2">
-          <Icon size={28} className="text-primary" />
+        <div className="inline-flex items-center justify-center p-2">
+          <Image
+            src={image}
+            alt={title}
+            width={500}
+            height={500}
+            className="text-primary rounded-lg"
+          />
         </div>
         <div>
           <h4 className="mb-2 text-lg font-semibold text-foreground">{title}</h4>

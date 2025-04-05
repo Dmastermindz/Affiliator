@@ -18,14 +18,14 @@ export function Hero() {
         <p className="max-w-md text-center text-lg text-muted-foreground lg:text-left">
           {" "}
           Launch affiliate marketing campaigns. Influencers share refferal links. Pay-out affiliates
-          in one click.
+          in one click with crypto.
         </p>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Button size="lg" variant="outline" asChild className="cursor-pointer border-border">
-            <Link href="#">Learn More</Link>
+            <Link href="#">Register as an Influencer</Link>
           </Button>
           <Button size="lg" asChild className="cursor-pointer">
-            <Link href="#">Get Started</Link>
+            <Link href="#">Post an Affiliate Offer</Link>
           </Button>
         </div>
       </div>

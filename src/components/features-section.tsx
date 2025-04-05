@@ -8,43 +8,42 @@ export function Features() {
       <div className="flex flex-col gap-3">
         <span className="text-center font-bold uppercase text-primary">Features</span>
         <h2 className="text-balance text-center font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-          Build fast and stay flexible
+          helping companies manage influencer marketing campaigns
         </h2>
       </div>
       <p className="max-w-xl text-balance text-center text-lg text-muted-foreground">
-        Reweb brings the best of two worlds together: the speed of development of no-code tools, and
-        the flexibility of code.
+        Influencers, consumers, and brands unite on Affiliator.
       </p>
       <div className="mt-6 grid auto-rows-fr grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
         <FeatureCard
-          title="Visual builder"
-          description="Edit HTML, Tailwind &amp; React components with a visual builder and see your changes in real-time."
-          icon={Frame}
+          title="1. Post an Affiliate Offer"
+          description="Post an offer for influencers to market your product, and earn a comission"
+          image="/images/_post-offer.png"
         />
         <FeatureCard
-          title="Code Export"
-          description="Once you're done building, export your project to a fully functional Next.js &amp; Tailwind app."
-          icon={Download}
+          title="2. Get a Custom Payments Page"
+          description="Accept crypto or credit cards to pay for your product!"
+          image="/images/_payments-page.png"
         />
         <FeatureCard
-          title="No lock-in"
-          description="You own the code. Customize with full flexibility and host it anywhere you want."
-          icon={Globe}
+          title="3. Influencers Share Your Product"
+          description="Influencers discover your Offer and can create a custom refferal URL to share"
+          image="/images/_unique-urls.png"
         />
         <FeatureCard
-          title="Built on modern tech"
-          description="Reweb works with the most popular frontend technologies like Next.js, Tailwind CSS and shadcn/ui."
-          icon={Sparkles}
+          title="4. Track User Purchases"
+          description="Funds are sent to your wallet after each user's purchase, instantly"
+          image="/images/_earnings.png"
         />
         <FeatureCard
-          title="Pre-made templates"
-          description="Get started quickly with pre-made templates and sections to build your landing page fast."
-          icon={LayoutPanelLeft}
+          title="5. Pay 100s of Affiliates in 1 Click"
+          description="Pay out Affiliates with one-click payments on Arbitrum "
+          image="/images/_one-click-payment.png"
         />
         <FeatureCard
-          title="AI Assistant"
-          description="Generate and customize components and themes from a promp, image or Figma design."
-          icon={Bot}
+          title="6. Track Your Revenue"
+          description="View aggregates and see how your Affiliates are performing!"
+          image="/images/_track-earnings.png"
         />
       </div>
     </section>
