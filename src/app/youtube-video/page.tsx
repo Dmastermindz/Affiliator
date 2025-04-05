@@ -17,7 +17,7 @@ export default function YoutubeVideoPage() {
       <div className="flex-1 w-full p-5">
         <iframe
           className="w-full h-full"
-          src="#"
+          src="https://www.youtube.com/embed/sQ8MNFVhIoU?si=mq_bBRMGs9V3NktD&amp;controls=0"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
