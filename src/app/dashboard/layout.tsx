@@ -28,6 +28,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
 
         <nav className="space-y-2">
+          <div className="mb-4">
+            <Image
+              src="/images/image.png"
+              alt="Dashboard Banner"
+              width={200}
+              height={100}
+              className="rounded-lg object-cover"
+            />
+          </div>
           <h2 className="pb-5 font-heading text-lg font-bold">Affiliate Management</h2>
           <Link
             href="/dashboard"

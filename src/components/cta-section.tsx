@@ -12,7 +12,7 @@ export function CtaSection() {
         Join Affiliator and learn why influencer marketing makes teams millions.
       </p>
       <Button size="lg" asChild variant="default" className="cursor-pointer border-border">
-        <Link href="#">Get Started</Link>
+        <Link href="/dashboard">Get Started</Link>
       </Button>
     </section>
   );

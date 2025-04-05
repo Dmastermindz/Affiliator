@@ -22,10 +22,10 @@ export function Hero() {
         </p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Button size="lg" variant="outline" asChild className="cursor-pointer border-border">
-            <Link href="#">Register as an Influencer</Link>
+            <Link href="/dashboard-influencer">Register as an Influencer</Link>
           </Button>
           <Button size="lg" asChild className="cursor-pointer">
-            <Link href="#">Post an Affiliate Offer</Link>
+            <Link href="/dashboard">Post an Affiliate Offer</Link>
           </Button>
         </div>
       </div>

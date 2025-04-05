@@ -19,7 +19,7 @@ export function FeatureCard({ title, description, image, className }: FeatureCar
             alt={title}
             width={500}
             height={500}
-            className="text-primary rounded-lg"
+            className="rounded-lg text-primary"
           />
         </div>
         <div>
