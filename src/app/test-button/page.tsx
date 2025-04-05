@@ -1,22 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function TestButtonPage() {
-  const [count, setCount] = useState(0);
+export default function TestButton() {
+  const [envStatus, setEnvStatus] = useState<{
+    supabaseUrl: boolean;
+    supabaseKey: boolean;
+  }>({
+    supabaseUrl: false,
+    supabaseKey: false,
+  });
+
+  useEffect(() => {
+    setEnvStatus({
+      supabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      supabaseKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    });
+  }, []);
 
   return (
-    <div className="p-8">
-      <h1 className="mb-4 text-2xl font-bold">Test Button Page</h1>
-      <button
-        onClick={() => {
-          console.log("Button clicked!");
-          setCount(count + 1);
-        }}
-        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-      >
-        Click me! Count: {count}
-      </button>
+    <div className="p-4">
+      <h1 className="text-xl font-bold mb-4">Environment Variables Test</h1>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <div
+            className={`w-4 h-4 rounded-full ${envStatus.supabaseUrl ? "bg-green-500" : "bg-red-500"}`}
+          />
+          <span>NEXT_PUBLIC_SUPABASE_URL: {envStatus.supabaseUrl ? "✅ Set" : "❌ Not Set"}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div
+            className={`w-4 h-4 rounded-full ${envStatus.supabaseKey ? "bg-green-500" : "bg-red-500"}`}
+          />
+          <span>
+            NEXT_PUBLIC_SUPABASE_ANON_KEY: {envStatus.supabaseKey ? "✅ Set" : "❌ Not Set"}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
