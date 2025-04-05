@@ -108,7 +108,7 @@ export function Section2() {
               </h2>
               <Button size="sm" variant="outline" className="gap-1">
                 <CreditCard size={14} />
-                Pay Out Affiliates
+                Pay Out Affiliatessss
               </Button>
             </div>
             {error ? (

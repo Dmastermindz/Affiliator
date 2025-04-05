@@ -21,28 +21,85 @@ interface Transaction {
 }
 
 export default function DashboardPage() {
+  console.log("Dashboard component initialized");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const handlePayAffiliates = async () => {
     try {
+      console.log("Starting handlePayAffiliates...");
+      console.log("All transactions:", transactions);
+      console.log(
+        "Transactions with influencer_paid=false:",
+        transactions
+          .filter((tx) => !tx.influencer_paid)
+          .map((tx) => ({
+            tx_id: tx.tx_id,
+            influencer_paid: tx.influencer_paid,
+            amount: tx.purchase_value,
+          })),
+      );
       // Get all unpaid transactions
       const unpaidTransactions = transactions.filter((tx) => !tx.influencer_paid);
+      console.log("Unpaid transactions count:", unpaidTransactions.length);
 
       if (unpaidTransactions.length === 0) {
         alert("No unpaid transactions to process");
         return;
       }
 
-      // Update all unpaid transactions to paid
-      const { error: updateError } = await supabase
-        .from("user_transactions")
-        .update({ influencer_paid: true })
-        .eq("influencer_paid", false);
+      // Create payment requests for each unpaid transaction
+      for (const tx of unpaidTransactions) {
+        try {
+          console.log("Making API call for transaction:", tx.tx_id);
+          console.log("API Key:", process.env.NEXT_PUBLIC_REQUEST_API_KEY);
+          // Make the Request Network API call
+          const response = await fetch("https://api.request.network/v1/request", {
+            method: "POST",
+            headers: {
+              "x-api-key": process.env.NEXT_PUBLIC_REQUEST_API_KEY!,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount: tx.influencer_payment.toString(),
+              payee: "0x2C11AE139ce104fFe6180C817F0d655CE4Defd1c",
+              invoiceCurrency: "aUSDC-mainnet",
+              paymentCurrency: "aUSDC-mainnet",
+            }),
+          });
 
-      if (updateError) {
-        throw updateError;
+          if (!response.ok) {
+            throw new Error(`API call failed for transaction ${tx.tx_id}`);
+          }
+
+          const result = await response.json();
+          console.log(
+            `Full API response for transaction ${tx.tx_id}:`,
+            JSON.stringify(result, null, 2),
+          );
+          console.log("requestID from response:", result.requestID);
+          console.log("full result keys:", Object.keys(result));
+
+          // Update the individual transaction with its requestID
+          const { error: updateError } = await supabase
+            .from("user_transactions")
+            .update({
+              influencer_paid: true,
+              request_id: result.requestID,
+            })
+            .eq("tx_id", tx.tx_id);
+
+          if (updateError) {
+            console.error("Error updating transaction:", updateError);
+            throw updateError;
+          }
+
+          console.log(`Successfully updated transaction ${tx.tx_id} with request_id`);
+        } catch (apiError) {
+          console.error(`Failed to create payment request for transaction ${tx.tx_id}:`, apiError);
+          throw apiError;
+        }
       }
 
       // Refresh the transactions list
@@ -78,6 +135,12 @@ export default function DashboardPage() {
           setError(error.message);
           return;
         }
+
+        console.log("Raw data from Supabase:", data);
+        console.log(
+          "Unpaid transactions in raw data:",
+          data?.filter((tx) => !tx.influencer_paid),
+        );
 
         setTransactions(data || []);
       } catch (error) {
@@ -160,18 +223,19 @@ export default function DashboardPage() {
                   <th className="pb-3 text-muted-foreground">Influencer Paid</th>
                   <th className="pb-3 text-muted-foreground">Influencer Payment</th>
                   <th className="pb-3 text-right text-muted-foreground">Revenue</th>
+                  <th className="pb-3 text-right text-muted-foreground">Receipt</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={6} className="py-4 text-center">
+                    <td colSpan={7} className="py-4 text-center">
                       Loading transactions...
                     </td>
                   </tr>
                 ) : transactions.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-4 text-center">
+                    <td colSpan={7} className="py-4 text-center">
                       No transactions found
                     </td>
                   </tr>
@@ -194,6 +258,18 @@ export default function DashboardPage() {
                       </td>
                       <td className="py-3">${tx.influencer_payment.toFixed(2)}</td>
                       <td className="py-3 text-right">${tx.purchase_value.toFixed(2)}</td>
+                      <td className="py-3 text-right">
+                        {tx.request_id && (
+                          <a
+                            href={`https://scan.request.network/request/${tx.request_id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline"
+                          >
+                            View Request Receipt
+                          </a>
+                        )}
+                      </td>
                     </tr>
                   ))
                 )}
