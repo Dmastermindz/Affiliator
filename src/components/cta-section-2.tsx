@@ -14,7 +14,7 @@ export function CtaSection2() {
           payments pages with your audience!
         </p>
         <Button size="lg" asChild variant="outline" className="cursor-pointer border-border">
-          <Link href="#">Get Started</Link>
+          <Link href="/dashboard-influencer">Get Started</Link>
         </Button>
       </div>
     </section>

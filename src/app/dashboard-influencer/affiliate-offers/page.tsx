@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, ArrowUpRight, Copy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { CreateOfferModal } from "@/components/create-offer-modal";
 
 interface OfferCard {
   id: string;
@@ -67,80 +69,20 @@ const mockOffers: OfferCard[] = [
 ];
 
 export default function AffiliateOffersPage() {
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
+  const [count, setCount] = useState(0);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <h2 className="text-2xl font-semibold">Available Affiliate Offers</h2>
-        <div className="flex flex-col gap-2 sm:flex-row">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search offers..."
-              className="w-full pl-8 sm:w-[250px]"
-            />
-          </div>
-          <Select className="w-full sm:w-[180px]">
-            <option value="">Category</option>
-            <option value="all">All Categories</option>
-            <option value="software">Software</option>
-            <option value="health">Health</option>
-            <option value="education">Education</option>
-            <option value="fashion">Fashion</option>
-          </Select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {mockOffers.map((offer) => (
-          <Card key={offer.id} className="flex flex-col p-6 transition-shadow hover:shadow-lg">
-            <div className="mb-2 flex items-center justify-between">
-              <h3 className="text-lg font-semibold">{offer.title}</h3>
-              <span className="rounded-full bg-primary/10 px-2 py-1 text-sm text-primary">
-                {offer.category}
-              </span>
-            </div>
-            <p className="mb-1 text-sm text-muted-foreground">by {offer.companyName}</p>
-            <p className="mb-4 grow text-muted-foreground">{offer.description}</p>
-
-            <div className="mb-4">
-              <h4 className="mb-2 font-medium">Requirements:</h4>
-              <ul className="list-inside list-disc text-sm text-muted-foreground">
-                {offer.requirements.map((req, index) => (
-                  <li key={index}>{req}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mb-4 flex items-center justify-between">
-              <div>
-                <span className="text-sm text-muted-foreground">Commission:</span>
-                <p className="font-medium text-primary">{offer.commission}</p>
-              </div>
-              <div className="text-right">
-                <span className="text-sm text-muted-foreground">Payout:</span>
-                <p className="font-medium">{offer.payoutFrequency}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Input type="text" value={offer.affiliateUrl} readOnly className="flex-1" />
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => copyToClipboard(offer.affiliateUrl)}
-                className="shrink-0"
-              >
-                <Copy className="size-4" />
-              </Button>
-            </div>
-          </Card>
-        ))}
-      </div>
+    <div className="p-8">
+      <h1 className="mb-4 text-2xl font-bold">Affiliate Offers Page</h1>
+      <button
+        onClick={() => {
+          console.log("Button clicked!");
+          setCount(count + 1);
+        }}
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+      >
+        Test Button Count: {count}
+      </button>
     </div>
   );
 }
